@@ -238,6 +238,24 @@ type it is necessary to perform several steps:
 [4] Connection and authentication parameters
 ---------------
 
+All configurations for Reverse Engineering are stored in folder **reverse_engineering**. Connection and authentication params and connection settings modal configuration are defining in the **connectionSettingsModalConfig.json** file.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[
+    {
+        "lowerTab": "Connection",
+        "structure": [
+            {
+                "inputLabel": "Disable SSl Authentication",
+                "inputKeyword": "disableSSL",
+                "inputType": "checkbox",
+                "inputTooltip": "Disable SSl Authentication for local instance"
+            }
+        ]
+    }
+]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 API Reference
 =============
 
