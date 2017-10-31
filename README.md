@@ -129,7 +129,7 @@ pane folder structure:
 ![](img/0e1d2e7b47d67df59c5366b1c8b16358.png)
 
 Each **\*.json** file represents an array with objects. Each object has
-configurations for a particular tab. Tab name is defined in modeName property.
+configurations for a particular tab. Tab name is defined in lowerTab property.
 All properties are defined as array and have the same structure across all PP
 configurations. Here’s an example of details tab with one property **comments:**
 
@@ -138,14 +138,15 @@ configurations. Here’s an example of details tab with one property **comments:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [
     {
-        "modeName": "Details",
+        "lowerTab": "Details",
         "structure": [
             {
-                "fieldName": "Comments",
-                "fieldKeyword": "comments",
+                "propertyName": "Comments",
+                "propertyKeyword": "comments",
                 "shouldValidate": false,
-                "fieldTooltip": "comments",
-                "fieldType": "details",
+                "propertyTooltip": "comments",
+                "propertyType": "details",
+                "propertyDefault": "Some comment",
                 "template": "textarea",
                 "valueType": "string"
             }
@@ -158,6 +159,8 @@ configurations. Here’s an example of details tab with one property **comments:
 
 *For detailed information about each property see* [Property Pane Structure
 API](#property-pane-structure-api)*.*
+
+*containerLevelConfig contains description of collection keys for detailed see* [Container Level Keys](#container-level-keys)*.*
 
  
 
@@ -338,11 +341,11 @@ Property Pane Structure API
 
 Property pane structure is represented by array of objects with two properties:
 
--   modeName
+-   lowerTab
 
 -   structure
 
-**modeName** is used to define type of tab for the entity. There are several
+**lowerTab** is used to define type of tab for the entity. There are several
 modes of tabs in the application:
 
 -   Details
@@ -367,14 +370,15 @@ type and behaviour.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [
     {
-        "modeName": "Details",
+        "lowerTab": "Details",
         "structure": [
             {
-                "fieldName": "Comments",
-                "fieldKeyword": "comments",
+                "propertyName": "Comments",
+                "propertyKeyword": "comments",
                 "shouldValidate": false,
-                "fieldTooltip": "comments",
-                "fieldType": "details",
+                "propertyTooltip": "comments",
+                "propertyType": "details",
+                "propertyDefault": "Some comment",
                 "template": "textarea",
                 "valueType": "string"
             }
@@ -385,17 +389,17 @@ type and behaviour.
 
  
 
-**fieldName** *(string)* - required; used to display label in the Properties
+**propertyName** *(string)* - required; used to display label in the Properties
 Panes for a property;
 
-**fieldKeyword** *(string)* - required; used in the main code as a keyword; no
+**propertyKeyword** *(string)* - required; used in the main code as a keyword; no
 whitespaces are allowed; should be lowercase;
 
 **shouldValidate** *(string)* - optional; defines whether field should be
 validated or any value is allowed.  Validation ruels are defined in
 validationRegularExpressions.json;
 
-**fieldType** *(string)* - required; field types; can be simple or complex;
+**propertyType** *(string)* - required; field types; can be simple or complex;
 simple types are select inputs or text inputs. Complex types usually use modal
 windows; Available field types to use when customizing PP properties are:
 
@@ -404,7 +408,7 @@ windows; Available field types to use when customizing PP properties are:
 ![](img/e80a39f976829b955592912f8594bc08.png)
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	"fieldType": "text"
+	"propertyType": "text"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -   details (used to add a description or comments with defined template property,
@@ -413,7 +417,7 @@ cfr below)
 ![](img/738bc884e58aeaf2939379820e3a98a8.png)
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    "fieldType": "details",
+    "propertyType": "details",
     "template": "textarea"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -422,7 +426,7 @@ cfr below)
 ![](img/ffca1885b1190f14c8f1b0733299b4de.png)
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    "fieldType": "select",
+    "propertyType": "select",
         "options": [
 		    "Public",
 		    "Restricted",
@@ -435,7 +439,7 @@ cfr below)
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	"fieldType": "text",
+	"propertyType": "text",
 	"valueType": "number"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -443,7 +447,7 @@ cfr below)
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    "fieldType": "checkbox"
+    "propertyType": "checkbox"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -460,7 +464,12 @@ validation rules
 **options** *(array)* - optional; used to define options in the select input if
 fieldType is selected
 
- 
+**propertyDefault** *(string|number|boolean)* - optional; contains default value of property. Type of value dependent on *propertyType*.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    "propertyType": "checkbox"
+    "propertyDefault": true
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Field types
 -----------
@@ -587,6 +596,65 @@ File **config.js** consist error messages list and property **excludeDocKind**
     "excludeDocKind": ["id"]
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Container Level Keys
+-----------
+
+Container Level Keys are fields which adding to collection when it create inside container. Description of container level keys place at containerLevelConfig by property **containerLevelKeys**. For example:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+    "cotnainerLevelKeys": [...],
+    "structure": [...],
+    "lowerTab": "..."
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In general description of container level keys similar like a [Property Pane Structure API](#property-pane-structure-api), but has a little difference. For example description of field with name "Index":
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+    "cotnainerLevelKeys": [{
+        "labelName": "Index",
+        "defaultName": "_index",
+        "propertyPrimaryKey": true,
+        "typeName": "Data type",
+        "typeOptions": ["string"],
+        "defaultType": "string",
+        "disabledFieldOption": true,
+        "sampleGen": "&containerName",
+        "propertyName": "Index",
+        "propertyKeyword": "index",
+        "propertyType": "text"
+    }]
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**labelName** *(string)* - required; name of property in properties pane
+
+**propertyPrimaryKey** *(boolean)* - required; whether the field is a primary key
+
+**typeName** *(string)* - required; label name of selector type
+
+**typeOptions** *(array)* - required; variant of types for field
+
+**defaultType** *(string)* - optional; default field type
+
+**defaultName** *(string)* - optional; default name of field
+
+ **sampleGen** *(string)* - optional; generate sample for field in preview, can contains next variants:
+
+ 1. *&random* - will generate random value
+
+ 2. *&entityName* - link to entity name
+
+ 3. *&containerName* - link to container name
+
+ 4. *constant* - some constant value
+
+**disabledFieldOption** *(boolean)* - optional; disable options of field
+ 
+
 
 Usage
 -----
