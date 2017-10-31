@@ -160,6 +160,8 @@ configurations. Here’s an example of details tab with one property **comments:
 *For detailed information about each property see* [Property Pane Structure
 API](#property-pane-structure-api)*.*
 
+*containerLevelConfig contains description of collection keys for detailed see* [Container Level Keys](#container-level-keys)*.*
+
  
 
 [2] Localization
@@ -462,7 +464,7 @@ validation rules
 **options** *(array)* - optional; used to define options in the select input if
 fieldType is selected
 
-**propertyDefault** *(string|number|boolean)* - contains default value of property. Type of value dependent on *propertyType*.
+**propertyDefault** *(string|number|boolean)* - optional; contains default value of property. Type of value dependent on *propertyType*.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     "propertyType": "checkbox"
@@ -569,6 +571,66 @@ This config has the next structure:
 **isHiddenKey** *(string)* - optional; flag that defines values which would be replaced by ****** in the log file
 
 **defaultValue** *(string)* - optional; default value for connection settings param
+
+
+
+Container Level Keys
+-----------
+
+Container Level Keys are fields which adding to collection when it create inside container. Description of container level keys place at containerLevelConfig by property **containerLevelKeys**. For example:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+    "cotnainerLevelKeys": [...],
+    "structure": [...],
+    "lowerTab": "..."
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In general description of container level keys similar like a [Property Pane Structure API](#property-pane-structure-api), but has a little difference. For example description of field with name "Index":
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+    "cotnainerLevelKeys": [{
+        "labelName": "Index",
+        "defaultName": "_index",
+        "propertyPrimaryKey": true,
+        "typeName": "Data type",
+        "typeOptions": ["string"],
+        "defaultType": "string",
+        "disabledFieldOption": true,
+        "sampleGen": "&containerName",
+        "propertyName": "Index",
+        "propertyKeyword": "index",
+        "propertyType": "text"
+    }]
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**labelName** *(string)* - required; name of property in properties pane
+
+**propertyPrimaryKey** *(boolean)* - required; whether the field is a primary key
+
+**typeName** *(string)* - required; label name of selector type
+
+**typeOptions** *(array)* - required; variant of types for field
+
+**defaultType** *(string)* - optional; default field type
+
+**defaultName** *(string)* - optional; default name of field
+
+ **sampleGen** *(string)* - optional; generate sample for field in preview, can contains next variants:
+
+ 1. *&random* - will generate random value
+
+ 2. *&entityName* - link to entity name
+
+ 3. *&containerName* - link to container name
+
+ 4. *constant* - some constant value
+
+**disabledFieldOption** *(boolean)* - optional; disable options of field
+ 
 
 Usage
 -----
