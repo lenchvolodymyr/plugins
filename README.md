@@ -510,7 +510,58 @@ created:
 **defaultValues** *(array)* - optional; used to define properties in PP; can be
 different and custom for each type
 
- 
+
+
+Reverse Engineering API
+-----------
+
+Reverse Engineering structure is represented by several blocks and include:
+
+-   configuration for connection settings modal and authentication
+-   file with Database API functionality
+-   configuration for RE process
+-   package file for define npm modules for RE
+
+Connection and authentication params and connection settings modal configuration are defining in the **connectionSettingsModalConfig.json** file.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[
+    {
+        "lowerTab": "Connection",
+        "structure": [
+            {
+                "inputLabel": "Disable SSl Authentication",
+                "inputKeyword": "disableSSL",
+                "inputType": "checkbox",
+                "inputTooltip": "Disable SSl Authentication for local instance"
+            }
+        ]
+    }
+]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This config has the next structure:
+
+**lowerTab** *(string)* - required; tab name in connection settings modal
+
+**structure** *(array)* - required; list of inputs for connection settings modal
+
+**inputLabel** *(string)* - required; connection settings input label
+
+**inputKeyword** *(string)* - required; keyword for connection settings param which is used in the RE process
+
+**inputType** *(string)* - required; type of connection settings input. Available input types to use when customizing connection settings template are:
+
+-   text
+-   checkbox
+-   password
+
+**inputTooltip** *(string)* - optional; connection settings input tooltip message
+
+**inputPlaceholder** *(string)* - optional; placeholder for connection settings input
+
+**isHiddenKey** *(string)* - optional; flag that defines values which would be replaced by ****** in the log file
+
+**defaultValue** *(string)* - optional; default value for connection settings param
 
 Usage
 -----
