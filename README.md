@@ -565,13 +565,13 @@ This config has the next structure:
 
 File **api.js** it is an adapter between a database and a Hackolade application that allows you to perform RE and process data using the API methods:
 
--   connect
--   disconnect
--   testConnection
--   getDatabases
--   getDocumentKinds
--   getDbCollectionsNames
--   getDbCollectionsData
+-   connect()
+-   disconnect()
+-   testConnection()
+-   getDatabases()
+-   getDocumentKinds()
+-   getDbCollectionsNames()
+-   getDbCollectionsData()
 
 File **config.js** consist error messages list and property **excludeDocKind**
 
