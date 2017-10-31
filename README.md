@@ -85,7 +85,8 @@ plugins. Name and extension of the file cannot be changed. The file is placed in
 the root folder next to the package.json file. If not set - the first letter
 from **name** property in package.json file will be used instead of logo.
 
-  [1] Properties pane structure -----------------------------
+[1] Properties pane structure
+----------------
 
 ![](img/b89a8e33ffe340d43324ae7fe7fe116b.png)
 
