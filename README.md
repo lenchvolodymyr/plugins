@@ -141,11 +141,12 @@ configurations. Here’s an example of details tab with one property **comments:
         "modeName": "Details",
         "structure": [
             {
-                "fieldName": "Comments",
-                "fieldKeyword": "comments",
+                "propertyName": "Comments",
+                "propertyKeyword": "comments",
                 "shouldValidate": false,
-                "fieldTooltip": "comments",
-                "fieldType": "details",
+                "propertyTooltip": "comments",
+                "propertyType": "details",
+                "propertyDefault": "Some comment",
                 "template": "textarea",
                 "valueType": "string"
             }
@@ -370,11 +371,12 @@ type and behaviour.
         "modeName": "Details",
         "structure": [
             {
-                "fieldName": "Comments",
-                "fieldKeyword": "comments",
+                "propertyName": "Comments",
+                "propertyKeyword": "comments",
                 "shouldValidate": false,
-                "fieldTooltip": "comments",
-                "fieldType": "details",
+                "propertyTooltip": "comments",
+                "propertyType": "details",
+                "propertyDefault": "Some comment",
                 "template": "textarea",
                 "valueType": "string"
             }
@@ -385,17 +387,17 @@ type and behaviour.
 
  
 
-**fieldName** *(string)* - required; used to display label in the Properties
+**propertyName** *(string)* - required; used to display label in the Properties
 Panes for a property;
 
-**fieldKeyword** *(string)* - required; used in the main code as a keyword; no
+**propertyKeyword** *(string)* - required; used in the main code as a keyword; no
 whitespaces are allowed; should be lowercase;
 
 **shouldValidate** *(string)* - optional; defines whether field should be
 validated or any value is allowed.  Validation ruels are defined in
 validationRegularExpressions.json;
 
-**fieldType** *(string)* - required; field types; can be simple or complex;
+**propertyType** *(string)* - required; field types; can be simple or complex;
 simple types are select inputs or text inputs. Complex types usually use modal
 windows; Available field types to use when customizing PP properties are:
 
@@ -404,7 +406,7 @@ windows; Available field types to use when customizing PP properties are:
 ![](img/e80a39f976829b955592912f8594bc08.png)
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	"fieldType": "text"
+	"propertyType": "text"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -   details (used to add a description or comments with defined template property,
@@ -413,7 +415,7 @@ cfr below)
 ![](img/738bc884e58aeaf2939379820e3a98a8.png)
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    "fieldType": "details",
+    "propertyType": "details",
     "template": "textarea"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -422,7 +424,7 @@ cfr below)
 ![](img/ffca1885b1190f14c8f1b0733299b4de.png)
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    "fieldType": "select",
+    "propertyType": "select",
         "options": [
 		    "Public",
 		    "Restricted",
@@ -435,7 +437,7 @@ cfr below)
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	"fieldType": "text",
+	"propertyType": "text",
 	"valueType": "number"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -443,7 +445,7 @@ cfr below)
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    "fieldType": "checkbox"
+    "propertyType": "checkbox"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -460,7 +462,12 @@ validation rules
 **options** *(array)* - optional; used to define options in the select input if
 fieldType is selected
 
- 
+**propertyDefault** *(string|number|boolean)* - contains default value of property. Type of value dependent on *propertyType*.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    "propertyType": "checkbox"
+    "propertyDefault": true
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Field types
 -----------
