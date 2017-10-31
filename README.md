@@ -15,7 +15,7 @@ customization of the following modules:
 
 3.  data types
 
-4.  connection and authentication parameters (TBD)
+4.  connection and authentication parameters
 
 5.  reverse-engineering parameters for sampling and schema inference (TBD)  
 
@@ -235,7 +235,8 @@ type it is necessary to perform several steps:
 
 *To learn more about all properties take a look at* [types API](#field-types-1)
 
- 
+[4] Connection and authentication parameters
+---------------
 
 API Reference
 =============
