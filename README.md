@@ -572,7 +572,30 @@ This config has the next structure:
 
 **defaultValue** *(string)* - optional; default value for connection settings param
 
+File **api.js** it is an adapter between a database and a Hackolade application that allows you to perform RE and process data using the API methods:
 
+-   connect()
+-   disconnect()
+-   testConnection()
+-   getDatabases()
+-   getDocumentKinds()
+-   getDbCollectionsNames()
+-   getDbCollectionsData()
+
+File **config.js** consist error messages list and property **excludeDocKind**
+
+**errors** *(object)* - list of error messages
+
+**excludeDocKind** *(array)* - list of props which would be excluded from select docType modal
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+    "errors": {
+	"NO_DATABASES": "There are no databases in CosmosDB instance",
+	"WRONG_CONNECTION": "Can not connect to CosmosDB instance"
+    },
+    "excludeDocKind": ["id"]
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Container Level Keys
 -----------
@@ -631,6 +654,7 @@ In general description of container level keys similar like a [Property Pane Str
 
 **disabledFieldOption** *(boolean)* - optional; disable options of field
  
+
 
 Usage
 -----
