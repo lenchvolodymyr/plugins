@@ -129,7 +129,7 @@ pane folder structure:
 ![](img/0e1d2e7b47d67df59c5366b1c8b16358.png)
 
 Each **\*.json** file represents an array with objects. Each object has
-configurations for a particular tab. Tab name is defined in modeName property.
+configurations for a particular tab. Tab name is defined in lowerTab property.
 All properties are defined as array and have the same structure across all PP
 configurations. Here’s an example of details tab with one property **comments:**
 
@@ -138,7 +138,7 @@ configurations. Here’s an example of details tab with one property **comments:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [
     {
-        "modeName": "Details",
+        "lowerTab": "Details",
         "structure": [
             {
                 "propertyName": "Comments",
@@ -341,11 +341,11 @@ Property Pane Structure API
 
 Property pane structure is represented by array of objects with two properties:
 
--   modeName
+-   lowerTab
 
 -   structure
 
-**modeName** is used to define type of tab for the entity. There are several
+**lowerTab** is used to define type of tab for the entity. There are several
 modes of tabs in the application:
 
 -   Details
@@ -370,7 +370,7 @@ type and behaviour.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [
     {
-        "modeName": "Details",
+        "lowerTab": "Details",
         "structure": [
             {
                 "propertyName": "Comments",
