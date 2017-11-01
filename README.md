@@ -606,7 +606,7 @@ Connection and authentication params and connection settings modal configuration
 
 ![localization](img/connection_settings_modal.png)
 
-This config has the next structure:
+This config contain a list of templates (tabs) for different part of connection settings split by categories and has the next structure:
 
 **lowerTab** *(string)* - required; tab name in connection settings modal
 
