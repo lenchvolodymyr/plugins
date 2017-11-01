@@ -603,6 +603,8 @@ Connection and authentication params and connection settings modal configuration
     }
 ]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<img src="img/connection_settings_modal.png" alt=connection settings modal" width="30%" height="30%">
+
 This config has the next structure:
 
 **lowerTab** *(string)* - required; tab name in connection settings modal
