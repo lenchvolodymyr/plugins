@@ -520,6 +520,61 @@ created:
 different and custom for each type
 
 
+Container Level Keys
+-----------
+
+Container Level Keys - fields which are the keys at the container level and automatically added to the collections when they are created. They are defining at **containerLevelConfigюоыщт** by property **containerLevelKeys**. For example:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+    "cotnainerLevelKeys": [...],
+    "structure": [...],
+    "lowerTab": "..."
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Setting container level keys has the similar structure to [Property Pane Structure API](#property-pane-structure-api). For example key with name "Index":
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+    "cotnainerLevelKeys": [{
+        "labelName": "Index",
+        "defaultName": "_index",
+        "propertyPrimaryKey": true,
+        "typeName": "Data type",
+        "typeOptions": ["string"],
+        "defaultType": "string",
+        "disabledFieldOption": true,
+        "sampleGen": "&containerName",
+        "propertyName": "Index",
+        "propertyKeyword": "index",
+        "propertyType": "text"
+    }]
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**labelName** *(string)* - required; name of property in properties pane
+
+**propertyPrimaryKey** *(boolean)* - required; whether the field is a primary key
+
+**typeName** *(string)* - required; label name of selector type
+
+**typeOptions** *(array)* - required; variant of types for field
+
+**defaultType** *(string)* - optional; default field type
+
+**defaultName** *(string)* - optional; default name of field
+
+ **sampleGen** *(string)* - optional; generate sample for field in preview, can contains next variants:
+
+ 1. *&random* - will generate random value
+
+ 2. *&entityName* - link to entity name
+
+ 3. *&containerName* - link to container name
+
+ 4. *constant* - some constant value
+
+**disabledFieldOption** *(boolean)* - optional; disable options of field
 
 Reverse Engineering API
 -----------
@@ -596,64 +651,6 @@ File **config.js** consist error messages list and property **excludeDocKind**
     "excludeDocKind": ["id"]
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Container Level Keys
------------
-
-Container Level Keys are fields which adding to collection when it create inside container. Description of container level keys place at containerLevelConfig by property **containerLevelKeys**. For example:
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-{
-    "cotnainerLevelKeys": [...],
-    "structure": [...],
-    "lowerTab": "..."
-}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-In general description of container level keys similar like a [Property Pane Structure API](#property-pane-structure-api), but has a little difference. For example description of field with name "Index":
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-{
-    "cotnainerLevelKeys": [{
-        "labelName": "Index",
-        "defaultName": "_index",
-        "propertyPrimaryKey": true,
-        "typeName": "Data type",
-        "typeOptions": ["string"],
-        "defaultType": "string",
-        "disabledFieldOption": true,
-        "sampleGen": "&containerName",
-        "propertyName": "Index",
-        "propertyKeyword": "index",
-        "propertyType": "text"
-    }]
-}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-**labelName** *(string)* - required; name of property in properties pane
-
-**propertyPrimaryKey** *(boolean)* - required; whether the field is a primary key
-
-**typeName** *(string)* - required; label name of selector type
-
-**typeOptions** *(array)* - required; variant of types for field
-
-**defaultType** *(string)* - optional; default field type
-
-**defaultName** *(string)* - optional; default name of field
-
- **sampleGen** *(string)* - optional; generate sample for field in preview, can contains next variants:
-
- 1. *&random* - will generate random value
-
- 2. *&entityName* - link to entity name
-
- 3. *&containerName* - link to container name
-
- 4. *constant* - some constant value
-
-**disabledFieldOption** *(boolean)* - optional; disable options of field
- 
 
 
 Usage
