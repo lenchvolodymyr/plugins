@@ -236,7 +236,7 @@ type it is necessary to perform several steps:
 
  
 
-*To learn more about all properties take a look at* [Field types](#field-types-1)
+*To learn more about all properties take a look at* [Field types API](#field-types)
 
 [4] Connection and authentication parameters
 ---------------
