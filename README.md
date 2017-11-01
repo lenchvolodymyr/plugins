@@ -260,8 +260,7 @@ All configurations for Reverse Engineering are stored in folder **reverse_engine
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-*For detailed information about each property see* [RE connection and authentication
-API](#connection-authentication-api)*.*
+*For detailed information about each property see* [Reverse Engineering API](#reverse-engineering-api)*.*
 
 
 API Reference
