@@ -586,6 +586,7 @@ Reverse Engineering structure is represented by several blocks and include:
 -   configuration for RE process
 -   package file for define npm modules for RE
 
+
 Connection and authentication params and connection settings modal configuration are defining in the **connectionSettingsModalConfig.json** file.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -627,6 +628,7 @@ This config has the next structure:
 
 **defaultValue** *(string)* - optional; default value for connection settings param
 
+
 File **api.js** it is an adapter between a database and a Hackolade application that allows you to perform RE and process data using the API methods:
 
 -   connect()
@@ -637,7 +639,8 @@ File **api.js** it is an adapter between a database and a Hackolade application 
 -   getDbCollectionsNames()
 -   getDbCollectionsData()
 
-File **config.js** consist error messages list and property **excludeDocKind**
+
+The file **config.js** consist error messages list and property **excludeDocKind**
 
 **errors** *(object)* - list of error messages
 
@@ -652,6 +655,7 @@ File **config.js** consist error messages list and property **excludeDocKind**
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+The file **package.json** contains a list of dependencies that are required to execute RE via **api.js**
 
 Usage
 -----
