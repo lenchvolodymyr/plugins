@@ -1,7 +1,7 @@
 {
 	"plugins": [
 		{
-			"name": "Test",
+			"name": "test_repository",
 			"target": "TEST",
 			"author": "lenchvolodymyr",
 			"authorRepo": "https://github.com/lenchvolodymyr",
