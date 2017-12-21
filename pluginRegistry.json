@@ -1,6 +1,14 @@
 {
 	"plugins": [
 		{
+			"name": "Test",
+			"target": "TEST",
+			"author": "lenchv",
+			"authorRepo": "https://github.com/lenchvolodymyr",
+			"description": "Description test",
+			"repository": "https://github.com/lenchvolodymyr/test_plugin"
+		},
+		{
 			"name": "Cassandra",
 			"target": "CASSANDRA",
 			"author": "hackolade",
