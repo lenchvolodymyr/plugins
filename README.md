@@ -268,6 +268,7 @@ created:
 **defaultValues** *(array)* - optional; used to define properties in PP; can be
 different and custom for each type
 
+**default** *(boolean)* - optional; used to define the main type if exists more than one data type with the same parent type 
  
 
 
