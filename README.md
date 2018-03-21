@@ -606,6 +606,10 @@ This config contain a list of templates (tabs) for different part of connection 
 -   text
 -   checkbox
 -   password
+-   select
+-   numeric
+-   dynamicListInput
+-   file
 
 **inputTooltip** *(string)* - optional; connection settings input tooltip message
 
@@ -614,6 +618,27 @@ This config contain a list of templates (tabs) for different part of connection 
 **isHiddenKey** *(string)* - optional; flag that defines values which would be replaced by ****** in the log file
 
 **defaultValue** *(string)* - optional; default value for connection settings param
+
+**options** *(array)* - required for inputType *select*; an array of objects that defines list of options. An object has next fromat: 
+```
+{ 
+    "value": <value of option>, 
+    "label": <view of option> 
+}
+```
+
+**dependency** *(object)* - optional; define dependence on value other properties. It has next format: 
+```
+{ 
+    "key": <inputKeyword of the dependent field>, 
+    "value": <value of the dependent field> 
+}
+``` 
+**extensions** *(array)* - required for inputType *file*; an array of strings that defines extensions of chosen files
+
+**modalTitle** *(string)* - required for inputType *dynamicListInput*; defines title of modal window
+
+**modalInputs** *(array)* - required for inputType *dynamicListInput*; an array that contains a description of fields inside modal window similar to this structure
 
 #### <a name="APIprogram"></a>2.7.2 Programming of Reverse-Engineering 
 The file **api.js** is an adapter between the Hackolade application and the target database that allows you to perform reverse-engineering and process data using the API methods:
