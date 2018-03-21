@@ -160,12 +160,45 @@ Available features:
 
 -   nestedCollections *(boolean)* - optional: if true, enables parent-child entities [default: false]
 -	disablePatternField *(boolean)* - optional: if false, disables the ability to define attributes as pattern fields [default: false]
+-   disableMultipleTypes *(boolean)* - optional; if true, disables the ability to define multiple types for a field [default: false],
+-   jaySchemaHasRequiredPatternField *(boolean)* - optional; if true, enables the ability to set up required to pattern fields [default: false]
+-   enableReverseEngineering *(boolean)* - optional; if true, enables the reverse-engineering [default: false]
+-	enableForwardEngineering *(boolean)* - optional; if true, enables the forward-engineering [default: false]
+-   forwardEngineering *(object)* - optional; contains parameters related to forward engineering, for details see [Forward-Engineering Feature](#forward-engineering-feature)
+
 
 **description** - optional; this data will be displayed in the list of plugins
 
 **disabled** - optional; used to mark the plugin as disabled [default: false]
 
- 
+
+#### <a name="forward-engineering-feature"></a>2.1.1 Forward-Engineering Feature
+
+Forward-Engineering feature allows to define types into the JSON Schema and has next structure:
+
+```
+{
+    'jsonSchema': {
+        'keepParentType': <...>
+    }
+}
+```
+
+**keepParentType** *(boolean|object)* - if true, fields in the JSON Schema after forward-engineering will have base types instead of inherited. An object also is determined as a true and has possibility to re-define types in the JSON Schema. For this, necessary to define an object where keys are names of types and a value can be as a name so and a description of the other type. The description contains property that related to field. For example:
+
+```
+{
+    'jsonSchema': {
+        'keepParentType': {
+            "objectId": {
+                "type": "string",
+                "pattern": "^[a-fA-F0-9]{24}$"
+            },
+            "regex": "string"
+        }
+    }
+}
+```
 
 
 ### <a name="creaLogo"></a>2.2 Logo file
