@@ -730,6 +730,35 @@ The file **package.json** contains a list of dependencies that are required to e
 
 ### <a name="creaFE"></a>2.8 Forward-Engineering (TBA)
 
+All configurations for Forward-Engineering are stored in folder **forward_engineering**. That folder consists of next files:
+
+-   [api.js](#feApi) - includes logic of creating a script
+-   [config.json](#feConfig) - configuration of forward-engineering
+-   package.json - contains a list of dependencies that are required to execute FE via **api.js**
+
+#### <a name="feApi"></a>2.8.1 Programming API
+
+The file **api.js** has a method *generateScript()* that is an adapter beetwen the application and plugin. The method receives three parameters:
+
+-   **data** *(object)* - contains data from application
+-   **logger** *(object)* - contains method *log()* in order to save info about state of process
+-   **callback** *(function)* - a function that transmit generated script to the application
+
+An object `data` consists of next fields:
+
+-   **jsonSchema** *(string)* - serialized JSON Schema of generated collection
+-   **modelData** *(object)* - model level data
+-   **containerData** *(object)* - container level data
+-   **entityData** *(object)* - entity level data
+-   **isUpdateScript** *(boolean)* - if update script is enabled (see [Configuration](#feConfig)) this flag will return the state of a requested script. True if requested an updated script, false - if a creation
+
+#### <a name="feConfig"></a>2.8.2 Configuration
+The file **config.json** contains an object that consists of next fields:
+
+-   **extension** *(string)* - defines file extension of script
+-   **filterName** *(string)* - defines name of extension
+-   **namePrefix** *(string)* - defines name that will added to the name of directory with script
+-   **hasUpdateScript** *(boolean)* - if true, will be added option for an updated script 
 <br>
 
 ## <a name="publication"></a>3. Plugin publication
