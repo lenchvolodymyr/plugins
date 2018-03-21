@@ -429,6 +429,16 @@ validation rules.
 
 **propertyDefault** *(string|number|boolean)* - optional; contains default value of property. Type of value dependent on *propertyType*.
 
+**dependency** *(object)* - optional; define dependence on value other properties. It has next format: 
+```
+{ 
+    "key": <inputKeyword of the dependent field>, 
+    "value": <value of the dependent field> 
+}
+``` 
+
+**disabledOnCondition** *(array)* - optional; used to disable property if all of statements in array are true. The array contains objects that structure similar to *dependency*
+
 For your properties, you may choose among a number of input controls:
 
 #### <a name="text"></a>2.6.1. simple text
@@ -620,7 +630,7 @@ This config contain a list of templates (tabs) for different part of connection 
 
 **defaultValue** *(string)* - optional; default value for connection settings param
 
-**options** *(array)* - required for inputType *select*; an array of objects that defines list of options. An object has next fromat: 
+**options** *(array)* - optional; an array of objects that defines list of options for *select* input. An object has next fromat: 
 ```
 { 
     "value": <value of option>, 
@@ -635,11 +645,11 @@ This config contain a list of templates (tabs) for different part of connection 
     "value": <value of the dependent field> 
 }
 ``` 
-**extensions** *(array)* - required for inputType *file*; an array of strings that defines extensions of chosen files
+**extensions** *(array)* - optional; an array of strings that defines extensions of chosen files for *file* input
 
-**modalTitle** *(string)* - required for inputType *dynamicListInput*; defines title of modal window
+**modalTitle** *(string)* - optional; defines title of modal window for *dynamicListInput*
 
-**modalInputs** *(array)* - required for inputType *dynamicListInput*; an array that contains a description of fields inside modal window similar to this structure
+**modalInputs** *(array)* - optional; an array that contains a description of fields inside modal window of *dynamicListInput* similar to structure of [property controls](#creaControls)
 
 #### <a name="APIprogram"></a>2.7.2 Programming of Reverse-Engineering 
 The file **api.js** is an adapter between the Hackolade application and the target database that allows you to perform reverse-engineering and process data using the API methods:
