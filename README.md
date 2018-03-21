@@ -626,6 +626,10 @@ The file **api.js** is an adapter between the Hackolade application and the targ
 -   getDbCollectionsNames()
 -   getDbCollectionsData()
 
+Full sequence of the reverse-engineering process next: <br> 
+`connect() -> getDatabases() -> getDocumentKinds() -> getDbCollectionsNames() -> getDbCollectionsData()`
+
+The first step after connect is able to change with property *scenario* from config.
 
 #### <a name="errMessages"></a>2.7.3 Configuration
 The file **config.js** consists of error message list and property 
@@ -634,12 +638,19 @@ The file **config.js** consists of error message list and property
 
 **excludeDocKind** *(array)* - list of properties which would be excluded from select docType modal
 
+**scenario** *(string)* - determines the first step of the reverse engineering. Can accept next options: 
+
+-   connectToDB *(default)* - first step will be `getDbCollectionsNames()`
+-   getDatabases - first step will be `getDatabases()`
+-   getDocumentKind - first step will be `getDocumentKinds()`
+
 	{
     	"errors": {
 		"NO_DATABASES": "There are no databases in CosmosDB instance",
 		"WRONG_CONNECTION": "Can not connect to CosmosDB instance"
     	},
-    	"excludeDocKind": ["id"]
+    	"excludeDocKind": ["id"],
+		"scenario": "connectToDB"
 	}
 
 #### <a name="dependencies"></a>2.7.4 Dependencies
