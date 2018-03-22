@@ -717,7 +717,7 @@ The file **config.js** consists of error message list and property
 		"WRONG_CONNECTION": "Can not connect to CosmosDB instance"
     	},
     	"excludeDocKind": ["id"],
-		"scenario": "connectToDB"
+	    "scenario": "connectToDB"
 	}
 
 #### <a name="dependencies"></a>2.7.4 Dependencies
