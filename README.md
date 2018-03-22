@@ -711,14 +711,14 @@ The file **config.js** consists of error message list and property
 -   getDatabases - first step will be `getDatabases()`
 -   getDocumentKind - first step will be `getDocumentKinds()`
 
-	{
-    	"errors": {
-		"NO_DATABASES": "There are no databases in CosmosDB instance",
-		"WRONG_CONNECTION": "Can not connect to CosmosDB instance"
-    	},
-    	"excludeDocKind": ["id"],
-	    "scenario": "connectToDB"
-	}
+    {
+        "errors": {
+        "NO_DATABASES": "There are no databases in CosmosDB instance",
+        "WRONG_CONNECTION": "Can not connect to CosmosDB instance"
+        },
+        "excludeDocKind": ["id"],
+        "scenario": "connectToDB"
+    }
 
 #### <a name="dependencies"></a>2.7.4 Dependencies
 The file **package.json** contains a list of dependencies that are required to execute RE via **api.js**
