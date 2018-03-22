@@ -204,8 +204,6 @@ Forward-Engineering feature allows to define types into the JSON Schema and has 
 ### <a name="creaLogo"></a>2.2 Logo file
 **logo.jpg** - the plugin logo image to be displayed in the list of plugins. Name and extension of the file cannot be changed. The file is placed in the root folder next to the package.json file. If not set - the first letter from **name** property in package.json file will be used instead of a logo.
 
-*containerLevelConfig contains description of collection keys for detailed see* [Container Level Keys](#container-level-keys)*.*
-
  
 
 
