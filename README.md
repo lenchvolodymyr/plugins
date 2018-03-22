@@ -163,7 +163,7 @@ Available features:
 -   disableMultipleTypes *(boolean)* - optional; if true, disables the ability to define multiple types for a field [default: false],
 -   jaySchemaHasRequiredPatternField *(boolean)* - optional; if true, enables the ability to set up required to pattern fields [default: false]
 -   enableReverseEngineering *(boolean)* - optional; if true, enables the reverse-engineering [default: false]
--	enableForwardEngineering *(boolean)* - optional; if true, enables the forward-engineering [default: false]
+-   enableForwardEngineering *(boolean)* - optional; if true, enables the forward-engineering [default: false]
 -   forwardEngineering *(object)* - optional; contains parameters related to forward engineering, for details see [Forward-Engineering Feature](#forward-engineering-feature)
 
 
