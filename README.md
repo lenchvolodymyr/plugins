@@ -160,16 +160,51 @@ Available features:
 
 -   nestedCollections *(boolean)* - optional: if true, enables parent-child entities [default: false]
 -	disablePatternField *(boolean)* - optional: if false, disables the ability to define attributes as pattern fields [default: false]
+-   disableMultipleTypes *(boolean)* - optional; if true, disables the ability to define multiple types for a field [default: false],
+-   jaySchemaHasRequiredPatternField *(boolean)* - optional; if true, enables the ability to set up required to pattern fields [default: false]
+-   enableReverseEngineering *(boolean)* - optional; if true, enables the reverse-engineering [default: false]
+-	enableForwardEngineering *(boolean)* - optional; if true, enables the forward-engineering [default: false]
+-   forwardEngineering *(object)* - optional; contains parameters related to forward engineering, for details see [Forward-Engineering Feature](#forward-engineering-feature)
+
 
 **description** - optional; this data will be displayed in the list of plugins
 
 **disabled** - optional; used to mark the plugin as disabled [default: false]
 
- 
+
+#### <a name="forward-engineering-feature"></a>2.1.1 Forward-Engineering Feature
+
+Forward-Engineering feature allows to define types into the JSON Schema and has next structure:
+
+```
+{
+    'jsonSchema': {
+        'keepParentType': <...>
+    }
+}
+```
+
+**keepParentType** *(boolean|object)* - if true, fields in the JSON Schema after forward-engineering will have base types instead of inherited. An object also is determined as a true and has possibility to re-define types in the JSON Schema. For this, necessary to define an object where keys are names of types and a value can be as a name so and a description of the other type. The description contains property that related to field. For example:
+
+```
+{
+    'jsonSchema': {
+        'keepParentType': {
+            "objectId": {
+                "type": "string",
+                "pattern": "^[a-fA-F0-9]{24}$"
+            },
+            "regex": "string"
+        }
+    }
+}
+```
 
 
 ### <a name="creaLogo"></a>2.2 Logo file
 **logo.jpg** - the plugin logo image to be displayed in the list of plugins. Name and extension of the file cannot be changed. The file is placed in the root folder next to the package.json file. If not set - the first letter from **name** property in package.json file will be used instead of a logo.
+
+*containerLevelConfig contains description of collection keys for detailed see* [Container Level Keys](#container-level-keys)*.*
 
  
 
@@ -266,6 +301,7 @@ created:
 **defaultValues** *(array)* - optional; used to define properties in PP; can be
 different and custom for each type
 
+**default** *(boolean)* - optional; used to define the main type if exists more than one data type with the same parent type 
  
 
 
@@ -425,6 +461,16 @@ validation rules.
 **shouldValidate** *(string)* - optional; defines whether field should be validated or any value is allowed.  Validation rules are defined in validationRegularExpressions.json;
 
 **propertyDefault** *(string|number|boolean)* - optional; contains default value of property. Type of value dependent on *propertyType*.
+
+**dependency** *(object)* - optional; define dependence on value other properties. It has next format: 
+```
+{ 
+    "key": <inputKeyword of the dependent field>, 
+    "value": <value of the dependent field> 
+}
+``` 
+
+**disabledOnCondition** *(array)* - optional; used to disable property if all of statements in array are true. The array contains objects that structure similar to *dependency*
 
 For your properties, you may choose among a number of input controls:
 
@@ -604,6 +650,10 @@ This config contain a list of templates (tabs) for different part of connection 
 -   text
 -   checkbox
 -   password
+-   select
+-   numeric
+-   dynamicListInput
+-   file
 
 **inputTooltip** *(string)* - optional; connection settings input tooltip message
 
@@ -612,6 +662,27 @@ This config contain a list of templates (tabs) for different part of connection 
 **isHiddenKey** *(string)* - optional; flag that defines values which would be replaced by ****** in the log file
 
 **defaultValue** *(string)* - optional; default value for connection settings param
+
+**options** *(array)* - optional; an array of objects that defines list of options for *select* input. An object has next fromat: 
+```
+{ 
+    "value": <value of option>, 
+    "label": <view of option> 
+}
+```
+
+**dependency** *(object)* - optional; define dependence on value other properties. It has next format: 
+```
+{ 
+    "key": <inputKeyword of the dependent field>, 
+    "value": <value of the dependent field> 
+}
+``` 
+**extensions** *(array)* - optional; an array of strings that defines extensions of chosen files for *file* input
+
+**modalTitle** *(string)* - optional; defines title of modal window for *dynamicListInput*
+
+**modalInputs** *(array)* - optional; an array that contains a description of fields inside modal window of *dynamicListInput* similar to structure of [property controls](#creaControls)
 
 #### <a name="APIprogram"></a>2.7.2 Programming of Reverse-Engineering 
 The file **api.js** is an adapter between the Hackolade application and the target database that allows you to perform reverse-engineering and process data using the API methods:
@@ -624,6 +695,10 @@ The file **api.js** is an adapter between the Hackolade application and the targ
 -   getDbCollectionsNames()
 -   getDbCollectionsData()
 
+Full sequence of the reverse-engineering process next: <br> 
+`connect() -> getDatabases() -> getDocumentKinds() -> getDbCollectionsNames() -> getDbCollectionsData()`
+
+The first step after connect is able to change with property *scenario* from config.
 
 #### <a name="errMessages"></a>2.7.3 Configuration
 The file **config.js** consists of error message list and property 
@@ -632,12 +707,19 @@ The file **config.js** consists of error message list and property
 
 **excludeDocKind** *(array)* - list of properties which would be excluded from select docType modal
 
+**scenario** *(string)* - determines the first step of the reverse engineering. Can accept next options: 
+
+-   connectToDB *(default)* - first step will be `getDbCollectionsNames()`
+-   getDatabases - first step will be `getDatabases()`
+-   getDocumentKind - first step will be `getDocumentKinds()`
+
 	{
     	"errors": {
 		"NO_DATABASES": "There are no databases in CosmosDB instance",
 		"WRONG_CONNECTION": "Can not connect to CosmosDB instance"
     	},
-    	"excludeDocKind": ["id"]
+    	"excludeDocKind": ["id"],
+		"scenario": "connectToDB"
 	}
 
 #### <a name="dependencies"></a>2.7.4 Dependencies
@@ -648,6 +730,35 @@ The file **package.json** contains a list of dependencies that are required to e
 
 ### <a name="creaFE"></a>2.8 Forward-Engineering (TBA)
 
+All configurations for Forward-Engineering are stored in folder **forward_engineering**. That folder consists of next files:
+
+-   [api.js](#feApi) - includes logic of creating a script
+-   [config.json](#feConfig) - configuration of forward-engineering
+-   package.json - contains a list of dependencies that are required to execute FE via **api.js**
+
+#### <a name="feApi"></a>2.8.1 Programming API
+
+The file **api.js** has a method *generateScript()* that is an adapter beetwen the application and plugin. The method receives three parameters:
+
+-   **data** *(object)* - contains data from application
+-   **logger** *(object)* - contains method *log()* in order to save info about state of process
+-   **callback** *(function)* - a function that transmit generated script to the application
+
+An object `data` consists of next fields:
+
+-   **jsonSchema** *(string)* - serialized JSON Schema of generated collection
+-   **modelData** *(object)* - model level data
+-   **containerData** *(object)* - container level data
+-   **entityData** *(object)* - entity level data
+-   **isUpdateScript** *(boolean)* - if update script is enabled (see [Configuration](#feConfig)) this flag will return the state of a requested script. True if requested an updated script, false - if a creation
+
+#### <a name="feConfig"></a>2.8.2 Configuration
+The file **config.json** contains an object that consists of next fields:
+
+-   **extension** *(string)* - defines file extension of script
+-   **filterName** *(string)* - defines name of extension
+-   **namePrefix** *(string)* - defines name that will added to the name of directory with script
+-   **hasUpdateScript** *(boolean)* - if true, will be added option for an updated script 
 <br>
 
 ## <a name="publication"></a>3. Plugin publication
