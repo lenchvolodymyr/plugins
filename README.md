@@ -685,18 +685,136 @@ This config contain a list of templates (tabs) for different part of connection 
 #### <a name="APIprogram"></a>2.7.2 Programming of Reverse-Engineering 
 The file **api.js** is an adapter between the Hackolade application and the target database that allows you to perform reverse-engineering and process data using the API methods:
 
--   connect()
--   disconnect()
--   testConnection()
--   getDatabases()
--   getDocumentKinds()
--   getDbCollectionsNames()
--   getDbCollectionsData()
+-   [connect()](#reConnect)
+-   [disconnect()](#reDisconnect)
+-   [testConnection()](#reTestConnection)
+-   [getDatabases()](#reGetDatabases)
+-   [getDocumentKinds()](#reGetDocumentKinds)
+-   [getDbCollectionsNames()](#reGetDbCollectionNames)
+-   [getDbCollectionsData()](#reGetDbCollectionsData)
 
 Full sequence of the reverse-engineering process next: <br> 
 `connect() -> getDatabases() -> getDocumentKinds() -> getDbCollectionsNames() -> getDbCollectionsData()`
 
 The first step after connect is able to change with property *scenario* from config.
+
+Every methods receive three parameters:
+
+-   **data** *(object)* - some data from application
+-   **logger** *(object)* - contains method *log()* that used to write information about process of the Reverse-Engineering
+-   **callback** *(function)* - receives two parameters: an object of error and data for application
+
+#### <a name="reConnect"></a>2.7.2.1 Connect 
+
+The method `connect()` receives data with [parameters of connection](#connectConfig) and called a callback with an object of error. This method is not called from the application and used only inside the plugin.
+
+#### <a name="reDisconnect"></a>2.7.2.2 Disconnect 
+
+The method `disconnect()` must disconnect from database and destroy an object of connection, then call callback.
+
+#### <a name="reTestConnection"></a>2.7.2.3 Test Connection 
+
+The method `testConnection()` need to check connection to the database and if success send `false` and `ture` if connection is failed.
+
+#### <a name="reGetDatabases"></a>2.7.2.4 Get Databases
+
+The method `getDatabases()` returns an array of database names through the callback. For example:
+
+```
+function getDatabases(data, logger, callback) {
+    // ...
+
+    callback(null, [ "myDb1", "myDb2" ]);
+}
+```
+
+#### <a name="reGetDocumentKinds"></a>2.7.2.5 Get Document Kinds
+
+The method `getDocumentKinds()` has to define fields that have same value in a set of documents. By these fields, the application will divide documents on collections. The method in the data object receives name of database in a property `database`. In the callback the method has to send an array of objects. An object has next structure:
+
+-   **bucketName** *(string)* - name of collections container 
+-   **documentList** *(array)* - names of fields that have a high probability to be the document kind
+-   **documentKind** *(string)* - name of field that has the highest probability to be the document kind
+-   **otherDocKinds** *(array)* - names of fields that have the smallest probabilty to be the document kind
+
+```
+function getDocumentKinds(data, logger, callback) {
+    const databaseName = data.database;
+    
+    // ...
+
+    callback(null, [{
+        "bucketName": "Hotels",
+        "documentList": [ "type", "name" ],
+        "documentKind": "type",
+        "otherDocKinds": [ "stops" ]
+    }]);
+}
+```
+
+#### <a name="reGetDbCollectionNames"></a>2.7.2.6 Get Collection Names
+
+The method `getDbCollectionsNames()` receives chosen collections with the document kinds and returns an array of objects that have next structure:
+
+-   **dbName** *(string)* - name of container
+-   **dbCollections** *(array)* - names of collections
+
+```
+function getDbCollectionsNames(data, logger, callback) {
+    connection.getCollectionsFromDb(data.database, (collections) => {
+        let result = [];
+
+        collections.forEach((collection) => {
+            connection.getDocuments(collection, (documents) => {
+                let documentKind = data.documentKinds[collection.name].documentKindName;
+                let types = [];
+
+                documents.forEach(document => {
+                    if (types.indexOf(document[documentKind]) === -1) {
+                        types.push(document[documentKind]);
+                    }
+                });
+
+                result.push({
+                    dbName: collection.name,
+                    dbCollections: types
+                });
+            });
+        });
+
+        callback(null, result);
+    });
+}
+```
+
+#### <a name="reGetDbCollectionsData"></a>2.7.2.7 Get Collections Data
+
+The method `getDbCollectionsData()` is the last step of the Reverse-Engineering. The method has to collect documents for chosen collections and send an array of objects. The object data from application has next structure:
+
+-   **includeEmptyCollection** *(boolean)* - used to filter collections without data
+-   **includeSystemCollection** *(boolean)* - used to filter system collections
+-   **collectionData** *(object)* - contains next fields
+    +   **dataBaseNames** *(array)* - an array of chosen names of containers
+	+   **collections** *(object)* - an object where keys are name of container and content an array of collections names
+-   **documentKinds** *(object)* - an object where keys are names of container and value is an object with the property *documentKindName*, that contains a document kind corresponding to the container
+-   **recordSamplingSettings** *(object)* - contains next properties:
+    + **active** *(string)* - can contains value "absolute" or "relative"
+    + **absolute** *(object)* - has the property *value* that contains a number of maximum documents for a select 
+    + **relative** *(object)* - has the property *value* that contains a percent of maximum documents for a select
+-   **database** *(string)* - name of database
+-   **fieldInference** *(object)* - has key *active* that can contain value "field", that means the schema needs to save the order of fields
+
+An object of the result array has to have next structure:
+
+-   **dbName** *(string)* - name of the container
+-   **collectionName** *(string)* - name of the collection
+-   **documents** *(array)* - an array of documents from the database that grouped by the document kind if it is necessary
+-   **indexes** *(array)* - an array of indexes
+-   **validation** *(boolean|object)* - if an object, can contain the property *jsonSchema* that contains a valid JSON Schema with additional properties for fields from *fieldsLevelConfig.json*
+-   **bucketInfo** *(object)* - additional information about container
+-   **containerLevelKeys** *(object)* - an object of container level keys that descripted in the *containerLevelConfig.json*
+
+Also third parameter of callback can receive information about model (e.g. name, version etc.)
 
 #### <a name="errMessages"></a>2.7.3 Configuration
 The file **config.js** consists of error message list and property 
@@ -740,7 +858,7 @@ The file **api.js** has a method *generateScript()* that is an adapter beetwen t
 
 -   **data** *(object)* - contains data from application
 -   **logger** *(object)* - contains method *log()* in order to save info about state of process
--   **callback** *(function)* - a function that transmit generated script to the application
+-   **callback** *(function)* - a function that send generated script to the application
 
 An object `data` consists of next fields:
 
