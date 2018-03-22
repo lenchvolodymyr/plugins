@@ -713,8 +713,8 @@ The file **config.js** consists of error message list and property
 
     {
         "errors": {
-        "NO_DATABASES": "There are no databases in CosmosDB instance",
-        "WRONG_CONNECTION": "Can not connect to CosmosDB instance"
+            "NO_DATABASES": "There are no databases in CosmosDB instance",
+            "WRONG_CONNECTION": "Can not connect to CosmosDB instance"
         },
         "excludeDocKind": ["id"],
         "scenario": "connectToDB"
