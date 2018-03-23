@@ -714,7 +714,7 @@ The method `disconnect()` must disconnect from database and destroy an object of
 
 #### <a name="reTestConnection"></a>2.7.2.3 Test Connection 
 
-The method `testConnection()` need to check connection to the database and if success send `false` and `ture` if connection is failed.
+The method `testConnection()` needs to check a connection to the database and if the connection is failed first parameter of the callback receives an object of error or nothing if the connection is success.
 
 #### <a name="reGetDatabases"></a>2.7.2.4 Get Databases
 
