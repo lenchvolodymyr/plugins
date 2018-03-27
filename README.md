@@ -301,6 +301,8 @@ different and custom for each type
 
 **default** *(boolean)* - optional; used to define the main type if exists more than one data type with the same parent type 
  
+**relatedTo** *(array)* - optional; used to define types to which can be created a relationship
+
 
 
 ### <a name="creaPanes"></a>2.5 Properties pane structure
@@ -346,7 +348,6 @@ All properties are defined as an array and have the same structure across all pr
                 	"shouldValidate": false,
                 	"propertyTooltip": "comments",
                 	"propertyType": "details",
-                	"propertyDefault": "Some comment",
                 	"template": "textarea",
                 	"valueType": "string"
             	}
@@ -457,8 +458,6 @@ propertyType is select.
 validation rules.
 
 **shouldValidate** *(string)* - optional; defines whether field should be validated or any value is allowed.  Validation rules are defined in validationRegularExpressions.json;
-
-**propertyDefault** *(string|number|boolean)* - optional; contains default value of property. Type of value dependent on *propertyType*.
 
 **dependency** *(object)* - optional; define dependence on value other properties. It has next format: 
 ```
